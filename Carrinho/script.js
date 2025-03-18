@@ -1,61 +1,62 @@
 $(document).ready(function(){
-    //Recuperar o carrinho do local storage
+    //recupera o carrinho do localstorage
     const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
     //elemento onde a lista sera exibida
     const listElement = $("#lista");
-    //elemento para para o total 
+    //elemento para o total
     const totalElement = $("#total");
 
     //funcao para exibir o carrinho
     function exibirCarrinho(){
-        //limpar o conteudo atual da lista
+        //limpa o conteudo atual da lista
         listElement.empty();
 
-        //variavel para acumular o preço total
+        //variavel para acumular o preco total
         let totalPreco = 0;
 
         //itera sobre os itens do carrinho
         $.each(carrinho, function(index, item){
-            //criar um elemento de lista para cada item
+            //cria um elemento de lista pára cada item
             const listItem = $("<li>").text(
-                `${item.descricao} - Preço $${item.preco}`
+                `${item.descricao} - Preço: $${item.preco}`
             );
 
-            //Criar um botao de remoção de item
+            //cria um botao de remoção do item
             const removeButton = $("<button>")
-            .text("❌")
-            .css("margin-left","10px")
-            .click(function(){
-                removerItemDoCarrinho(index)
-            });
+            .addClass("batata")
+                .text("❌")
+                .css("margin-left", "10px")
+                .click(function(){
+                    removerItemDoCarrinho(index)
+                });
 
-            //criar os filhos e os pais
+            //criando os filhos e pais
             listItem.append(removeButton)
             listElement.append(listItem)
             //incrementa o valor total
             totalPreco += item.preco
         });
-        //imprime o total do valor dos itens
-        totalElement.text(`Total: $${totalPreco}`);
+        //imprimi o total em valor dos items
+        totalElement.text(`Total: $${totalPreco}`)
     }
 
     function removerItemDoCarrinho(index){
         carrinho.splice(index, 1);
-        localStorage.setItem("carrinho", JSON.stringify(carrinho));
+        localStorage.setItem("carrinho", JSON.stringify(carrinho))
         exibirCarrinho();
     }
 
     exibirCarrinho();
 });
 
-function gerarDocumentoWorld(){
-    const listElement = document.getElementById("lista")
-    const totalElement = document.getElementById("total")
+function gerarDocumentoWord(){
+    const  listaElement = document.getElementById("lista")
+    const  totalElement = document.getElementById("total")
 
     //clona a lista para evitar a modificação direta na lista original
-    const listaClone = listElement.cloneNode(true)
-    //remove o botão da lista para ir para o word sem ele
+    const listaClone = listaElement.cloneNode(true)
+    //rmeove o botao da lista para ir pro word sem ele
     $(listaClone).find("button").remove()
 
     const listaHtml = listaClone.innerHTML
@@ -64,28 +65,26 @@ function gerarDocumentoWorld(){
     const conteudoHtml = `
         <html>
             <head>
-                <meta charset-"UTF-8" />
-                </head>
-                <body>
-                    <h1>Pedido Confirmado</h1>
-                    ${listaHtml}
-                    <br>
-                    <br>
-                    ${totalHtml}
-                </body>
-                </html>
+                <meta charset="UTF-8" />
+            </head>
+            <body>
+                <h1>Pedido Confirmado</h1>
+                ${listaHtml}
+                <br><br>
+                ${totalHtml}
+            </body>
+        </html>
     `;
 
     const blob = new Blob([conteudoHtml], {type: "application/msword"});
-    const link = document.creatElement("a")
+    const link = document.createElement("a")
     link.href = URL.createObjectURL(blob)
-    link.download = "carrinho.doc"
-    link.click()
-
+    link.download = "carrinho.doc";
+    link.click();
 
     document.getElementById("pedido").style.display = "block"
 }
 
-function sucessClose(){
+function successClose(){
     document.getElementById("pedido").style.display = "none"
 }
