@@ -18,14 +18,14 @@ $(document).ready(function(){
         //itera sobre os itens do carrinho
         $.each(carrinho, function(index, item){
             //cria um elemento de lista pára cada item
-            const listItem = $("<li>").text(
-                `${item.descricao} - Preço: $${item.preco}`
+            const listItem = $("<p>").text(
+                `${item.descricao} - Unidade: R$${item.preco}`
             );
 
             //cria um botao de remoção do item
             const removeButton = $("<button>")
-            .addClass("batata")
-                .text("❌")
+            .addClass("botaoRemov")
+                .text("🗑️")
                 .css("margin-left", "10px")
                 .click(function(){
                     removerItemDoCarrinho(index)
@@ -85,6 +85,6 @@ function gerarDocumentoWord(){
     document.getElementById("pedido").style.display = "block"
 }
 
-function successClose(){
+function sucessClose(){
     document.getElementById("pedido").style.display = "none"
 }

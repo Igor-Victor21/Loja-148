@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrinho</title>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         /* font nunito, ou roboto */
-        :root{
+        :root {
             --bg-sup: #f9f4ef;
             --bg-c: #eaddcf;
             --negrito: #020826;
@@ -16,72 +21,142 @@
             --bg-card: #fffffe;
             --linhas: #fffffe;
         }
-        *{
+
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        #pedido{
+
+        #pedido {
             display: block;
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 20px;
-            background-color: green;
-            color: white;
+            background-color: var(--bg-sup);
+            color: var(--negrito);
+            border-radius: 999px;
+            border: 2px solid var(--negrito);
+            font-family: "Nunito", sans-serif;
+            font-weight: 400;
+            font-style: normal;
             font-size: 1.4rem;
         }
-        body{
+
+        body {
             background-color: var(--bg-c);
-        }
-        body a{
-            display: flex;
-            position: relative;
-            
+
         }
 
-        .fundo-topo{
+        body a {
+            display: flex;
+            position: relative;
+
+        }
+
+        .fundo-topo {
             display: flex;
             background-color: var(--bg-sup);
             width: 100%;
         }
 
-        .fundo-topo a{
+        .fundo-topo a {
             padding-top: 15px;
             padding-left: 3px;
         }
 
-        .logo-topo{
+        .logo-topo {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-left: 50%;
+            padding-left: 47vw;
             flex-direction: column;
         }
 
-       #s1{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        background-color: var(--bg-card);
-        width: 50vw;
-        border: 2px solid #020826;
-       }
+        #s1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: var(--bg-card);
+            width: 50vw;
+            margin-left: 5vw;
+            margin-top: 10vw;
+            min-width: 50vw;
+            max-width: 80vw;
+            border: 2px solid #020826;
+            border-radius: 10px;
+        }
 
-        #s1 h1{
-        border: 2px solid #020826;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        background-color: var(--bg-card);
-        width: 50vw;
-        border: 2px solid #020826;
-       }
-        
+        h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            width: 50vw;
+            min-width: 50vw;
+            max-width: 80vw;
+            border-bottom: 2px solid var(--negrito);
+        }
+
+        #s3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: var(--bg-card);
+            width: 50vw;
+            margin-left: 25vw;
+            margin-top: 10vw;
+            min-width: 50vw;
+            max-width: 80vw;
+            border: 2px solid #020826;
+            border-radius: 10px;
+        }
+
+        h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;      
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            width: 50vw;
+            min-width: 50vw;
+            max-width: 80vw;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--negrito);
+        }
+
+        .div-pedido{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px;            
+        }
+
+        .botaoTotal {
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 999px;
+        }
+
+        h3{
+            padding: 5px;
+        }
+
     </style>
 </head>
+
 <body>
     <div class="fundo-topo">
         <a href="../Loja/">
@@ -91,22 +166,30 @@
             <img src="../Assets/Imagens/U-removebg-preview.png" alt="img-logo" width="80px" height="auto">
         </div>
     </div>
-   <section id="s1">
-    <div>
+
+    <section id="s1">
         <h1>Carrinho de compras</h1>
-    </div>
-    <div id="lista">
-        
-    </div>
-    <h2 id="total"></h2>
-    <button onclick="gerarDocumentoWord()">Realizar pedido</button>
-    <p id="pedido">
-        Pedido gerado com sucesso
-        <button id="sc" onclick="sucessClose()">❌</button>
-    </p>
-    <script src="script.js"></script>
-   </section>
-    
-    
+        <div id="lista">
+        </div>
+    </section>
+        <section id="s2">
+            section 2
+        </section>
+    <section id="s3">
+        <div class="div-pedido">
+            <h2>Resumo do pedido</h2>
+            <h3 id="total"></h3>
+            <button class="botaoTotal" onclick="gerarDocumentoWord()">Realizar pedido</button>
+            <p id="pedido">
+                Pedido gerado com sucesso
+                <button id="sc" onclick="sucessClose()">❌</button>
+            </p>
+            <script src="script.js"></script>
+        </div>
+    </section>
+
+
+
 </body>
+
 </html>
