@@ -1,52 +1,58 @@
 $(document).ready(function(){
-    //recupera o carrinho do localstorage
+    // Recupera o carrinho do localStorage
     const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-    //elemento onde a lista sera exibida
+    // Elementos onde os itens serão exibidos
     const listElement = $("#lista");
-    //elemento para o total
     const totalElement = $("#total");
 
-    //funcao para exibir o carrinho
+    // Função para exibir o carrinho
     function exibirCarrinho(){
-        //limpa o conteudo atual da lista
-        listElement.empty();
+        listElement.empty(); // Limpa o conteúdo da lista
+        let totalPreco = 0; // Inicializa o total
 
-        //variavel para acumular o preco total
-        let totalPreco = 0;
-
-        //itera sobre os itens do carrinho
         $.each(carrinho, function(index, item){
-            //cria um elemento de lista pára cada item
-            const listItem = $("<p>").text(
-                `${item.descricao} - Unidade: R$${item.preco}`
-            );
+            // Cria um container para cada item
+            const listItem = $("<div>").addClass("item-carrinho");
 
-            //cria um botao de remoção do item
+            // Adiciona a imagem do produto
+            const img = $("<img>")
+                .attr("src", item.imagem)
+                .attr("alt", item.descricao)
+                .addClass("imagem-produto");
+
+            // Cria o texto da descrição e preço
+            const descricao = $("<p>").text(`${item.descricao} - Unidade: R$${item.preco}`);
+
+            // Botão de remoção
             const removeButton = $("<button>")
-            .addClass("botaoRemov")
+                .addClass("botaoRemov")
                 .text("🗑️")
                 .css("margin-left", "10px")
                 .click(function(){
-                    removerItemDoCarrinho(index)
+                    removerItemDoCarrinho(index);
                 });
 
-            //criando os filhos e pais
-            listItem.append(removeButton)
-            listElement.append(listItem)
-            //incrementa o valor total
-            totalPreco += item.preco
+            // Monta a estrutura
+            listItem.append(img, descricao, removeButton);
+            listElement.append(listItem);
+
+            // Incrementa o valor total
+            totalPreco += item.preco;
         });
-        //imprimi o total em valor dos items
-        totalElement.text(`Total: $${totalPreco}`)
+
+        // Exibe o total
+        totalElement.text(`Total: R$${totalPreco}`);
     }
 
+    // Função para remover item do carrinho
     function removerItemDoCarrinho(index){
         carrinho.splice(index, 1);
-        localStorage.setItem("carrinho", JSON.stringify(carrinho))
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
         exibirCarrinho();
     }
 
+    // Exibe o carrinho na inicialização
     exibirCarrinho();
 });
 
